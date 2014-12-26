@@ -11,7 +11,8 @@ RUN mkdir -p $UPSOURCE_HOME_DIR && \
     wget -q http://download.jetbrains.com/upsource/upsource-$UPSOURCE_VERSION.zip && \
     unzip upsource-$UPSOURCE_VERSION.zip && \
     rm -rf upsource-$UPSOURCE_VERSION.zip && \
-    mkdir -p $UPSOURCE_HOME_DIR/Upsource/{data,backups,logs}
+    rm -rf $UPSOURCE_HOME_DIR/Upsource/conf && \
+    mkdir -p $UPSOURCE_HOME_DIR/Upsource/{data,backups,logs,conf}
 EXPOSE 8080
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
