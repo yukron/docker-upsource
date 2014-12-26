@@ -2,16 +2,18 @@ FROM smalllark/java
 MAINTAINER Dmitri Sh <smalllark@gmail.com>
 
 # Install Upsource.
+ENV UPSOURCE_HOME_DIR /var/lib/upsource
 ENV UPSOURCE_VERSION 1.0.12551
-RUN mkdir -p /usr/local/upsource
-RUN apt-get update && \
+RUN mkdir -p $UPSOURCE_HOME_DIR && \
+    apt-get update && \
     apt-get install -y unzip && \
-    cd /usr/local/upsource && \
+    cd $UPSOURCE_HOME_DIR && \
     wget -q http://download.jetbrains.com/upsource/upsource-$UPSOURCE_VERSION.zip && \
     unzip upsource-$UPSOURCE_VERSION.zip && \
-    rm -rf upsource-$UPSOURCE_VERSION.zip
+    rm -rf upsource-$UPSOURCE_VERSION.zip && \
+    mkdir -p $UPSOURCE_HOME_DIR/Upsource/{data,backups,logs}
 EXPOSE 8080
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-WORKDIR /usr/local/upsource/Upsource
+WORKDIR $UPSOURCE_HOME_DIR/Upsource
 CMD ["./bin/upsource.sh", "help", "start"]
