@@ -1,21 +1,17 @@
 FROM java:openjdk-7-jre
+
 MAINTAINER Eugene Volchek <evolchek@klika-tech.com>
 
-# Install Upsource.
-ENV INSTALL_TO /opt
 ENV UPSOURCE_VERSION 1.0.12566
-ADD http://download.jetbrains.com/upsource/upsource-$UPSOURCE_VERSION.zip /tmp/
-RUN mkdir -p $INSTALL_TO && \
-    cd $INSTALL_TO && \
-    unzip /tmp/upsource-$UPSOURCE_VERSION.zip && \
-    rm -rf /tmp/upsource-$UPSOURCE_VERSION.zip && \
-    rm -rf $INSTALL_TO/Upsource/conf && \
-    mkdir -p $INSTALL_TO/Upsource/{data,backups,logs,conf}
-# Clean up APT when done.
-RUN useradd -r upsource
-RUN chown -R upsource:upsource $INSTALL_TO/Upsource
+WORKDIR /opt
+RUN groupadd -g 999 upsource && useradd -u 999 -g upsource upsource && \
+	wget -nv http://download.jetbrains.com/upsource/upsource-$UPSOURCE_VERSION.zip && \
+	unzip upsource-$UPSOURCE_VERSION.zip && \
+	rm -rf upsource-$UPSOURCE_VERSION.zip && \
+	rm -rf Upsource/conf && \
+	mkdir -p Upsource/{data,backups,logs,conf} && \
+	chown -R upsource:upsource Upsource/{data,backups,logs,conf}
 USER upsource
 EXPOSE 8080
-WORKDIR $INSTALL_TO/Upsource
-ENTRYPOINT ["bin/upsource.sh"]
-CMD ["run"]
+WORKDIR /opt/Upsource
+CMD ["bin/upsource.sh", "run"]
