@@ -18,7 +18,7 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN useradd -r upsource
 RUN chown -R upsource:upsource $INSTALL_TO/Upsource
 USER upsource
-EXPOSE 1111
+EXPOSE 8080
 WORKDIR $INSTALL_TO/Upsource
 ENTRYPOINT ["bin/upsource.sh"]
 CMD ["run"]
