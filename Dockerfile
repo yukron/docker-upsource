@@ -13,9 +13,12 @@ RUN mkdir -p $INSTALL_TO && \
     rm -rf /tmp/upsource-$UPSOURCE_VERSION.zip && \
     rm -rf $INSTALL_TO/Upsource/conf && \
     mkdir -p $INSTALL_TO/Upsource/{data,backups,logs,conf}
-EXPOSE 1111
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN useradd -r upsource
+RUN chown -R upsource:upsource $INSTALL_TO/Upsource
+USER upsource
+EXPOSE 1111
 WORKDIR $INSTALL_TO/Upsource
 ENTRYPOINT ["bin/upsource.sh"]
 CMD ["run"]
