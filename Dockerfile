@@ -1,4 +1,4 @@
-FROM smalllark/java
+FROM java:7-jre
 MAINTAINER Dmitri Sh <smalllark@gmail.com>
 
 # Install Upsource.
