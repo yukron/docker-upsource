@@ -1,5 +1,5 @@
-FROM java:7-jre
-MAINTAINER Dmitri Sh <smalllark@gmail.com>
+FROM java:openjdk-7-jre
+MAINTAINER Eugene Volchek <evolchek@klika-tech.com>
 
 # Install Upsource.
 ENV UPSOURCE_HOME_DIR /var/lib/upsource
