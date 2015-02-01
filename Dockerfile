@@ -17,4 +17,5 @@ EXPOSE 1111
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 WORKDIR $INSTALL_TO/Upsource
-CMD ["./bin/upsource.sh", "start"]
+ENTRYPOINT ["bin/upsource.sh"]
+CMD ["run"]
