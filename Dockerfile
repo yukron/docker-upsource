@@ -8,9 +8,9 @@ RUN groupadd -g 999 upsource && useradd -u 999 -g upsource upsource && \
 	wget -nv http://download.jetbrains.com/upsource/upsource-$UPSOURCE_VERSION.zip && \
 	unzip upsource-$UPSOURCE_VERSION.zip && \
 	rm -rf upsource-$UPSOURCE_VERSION.zip && \
-	rm -rf Upsource/conf && \
-	mkdir -p Upsource/{data,backups,logs,conf} && \
-	chown -R upsource:upsource Upsource/{data,backups,logs,conf}
+	cd Upsource && rm -rf conf && \
+	mkdir -p data backups logs conf && \
+	chown -R upsource:upsource data backups logs conf
 USER upsource
 EXPOSE 8080
 WORKDIR /opt/Upsource
