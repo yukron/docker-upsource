@@ -5,17 +5,15 @@
 If it is your initial Upsource run you have to configure it before use. This can be done by creating an intermediate container:
 
 ```
-docker run --name upsource-tmp -v /data/upsource/conf:/opt/Upsource/conf klikatech/upsource \
+docker run --rm -v /data/upsource/conf:/opt/Upsource/conf klikatech/upsource \
   bin/upsource.sh configure --listen-port 8080
-docker wait upsource-tmp && docker rm upsource-tmp
 ```
 
 or if you're going to use a reverse proxy:
 
 ```
-docker run --name upsource-tmp -v /data/upsource/conf:/opt/Upsource/conf klikatech/upsource \
+docker run --rm -v /data/upsource/conf:/opt/Upsource/conf klikatech/upsource \
   bin/upsource.sh configure --listen-port 8080 --base-url http://upsource.example.com
-docker wait upsource-tmp && docker rm upsource-tmp
 ```
 
 See [official docs](https://www.jetbrains.com/upsource/help/1.0/install_config.html) for details.
