@@ -3,6 +3,7 @@ FROM java:openjdk-7-jre
 MAINTAINER Eugene Volchek <evolchek@klika-tech.com>
 
 ENV UPSOURCE_VERSION 1.0.12566
+VOLUME ["/opt/Upsource/conf", "/opt/Upsource/data", "/opt/Upsource/logs", "/opt/Upsource/backups"]
 WORKDIR /opt
 RUN mkdir -p /home/upsource \
 	&& groupadd -g 999 upsource \
